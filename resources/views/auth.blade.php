@@ -3,30 +3,46 @@
 @section('title', 'Вход')
 
 @section('content')
-    <style>
-        main {
-            width: 25%;
-        }
-    </style>
-
-    <main>
+    <main style="width: 25%;">
         <div class="login-form">
             <h1>Вход</h1>
-            <form action="" method="POST">
-                @csrf
-                <div class="form-group">
-                    <label for="email">Электронная почта</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
+            <form>
+                <!-- Поле ввода электронной почты -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="email" id="form2Example1" class="form-control" />
+                    <label class="form-label" for="form2Example1">Электронная почта</label>
                 </div>
-                <div class="form-group">
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
+
+                <!-- Поле ввода пароля -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="password" id="form2Example2" class="form-control" />
+                    <label class="form-label" for="form2Example2">Пароль</label>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Войти</button>
+
+                <!-- Макет из двух колонок для стилизации -->
+                <div class="row mb-4">
+                    <div class="col d-flex justify-content-center">
+                        <!-- Флажок -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                            <label class="form-check-label" for="form2Example31"> Запомнить меня </label>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <!-- Простая ссылка -->
+                        <a href="#!">Забыли пароль?</a>
+                    </div>
+                </div>
+
+                <!-- Кнопка отправки -->
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4 w-100">Войти</button>
+
+                <!-- Кнопки регистрации -->
+                <div class="text-center">
+                    <p>Ещё нет аккаунта? <a href="{{route('register')}}">Зарегистрироваться</a></p>
                 </div>
             </form>
-            <p>Ещё не зарегистрированы? <a href="{{route('register')}}">Зарегистрироваться</a></p>
         </div>
     </main>
 

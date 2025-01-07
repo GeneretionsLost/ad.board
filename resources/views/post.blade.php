@@ -36,7 +36,6 @@
         .add-price {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #e74c3c;
         }
     </style>
 

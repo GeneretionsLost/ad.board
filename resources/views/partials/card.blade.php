@@ -1,7 +1,9 @@
-<div class="card">
-    <img src="https://via.placeholder.com/150" alt="Product Image" class="card-img">
-    <h5 class="card-title"><a href="{{route('post')}}">Название товара</a></h5>
-    <p class="card-description">Краткое описание товара.</p>
-    <p class="card-price">Цена: 1 500 ₽</p>
-    <button class="btn btn-primary">Купить</button>
+<div class="card" style="width: 18rem;">
+    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="card-price" style="font-size: 1.25rem; font-weight: bold;">Цена: 1000 ₽</p>
+        <a href="{{route('post')}}" class="btn btn-primary">Купить</a>
+    </div>
 </div>

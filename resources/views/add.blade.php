@@ -3,12 +3,7 @@
 @section('title', 'Создание объявления')
 
 @section('content')
-    <style>
-        main {
-            width: 25%;
-        }
-    </style>
-    <main>
+    <main style="width: 25%;">
         <form action="#" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -17,40 +12,38 @@
                     <input type="text" id="title" name="title" class="form-control" placeholder="Введите название объявления" required>
                 </div>
 
-                <label for="category">Категория</label>
+                <label for="category" style="margin-top: 15px;">Категория</label>
                 <select id="category" name="category" class="form-control">
                     <option value="">Выберите категорию</option>
                     <option value="electronics">Электроника</option>
                     <option value="furniture">Мебель</option>
                     <option value="clothing">Одежда</option>
-                    <!-- Добавьте другие категории -->
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="subcategory">Подкатегория</label>
+                <label for="subcategory" style="margin-top: 15px;">Подкатегория</label>
                 <select id="subcategory" name="subcategory" class="form-control" disabled>
                     <option value="">Выберите подкатегорию</option>
-                    <!-- Подкатегории будут добавляться через JavaScript в зависимости от выбранной категории -->
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="image">Загрузить фото</label>
+                <label for="image" style="margin-top: 15px;">Загрузить фото</label>
                 <input type="file" id="image" name="image" class="form-control" accept="image/*">
             </div>
 
             <div class="form-group">
-                <label for="description">Краткое описание</label>
-                <textarea id="description" name="description" class="form-control" rows="4" placeholder="Введите краткое описание" required></textarea>
+                <label for="description" style="margin-top: 15px;">Краткое описание</label>
+                <textarea id="description"  name="description" class="form-control"  rows="4" placeholder="Введите краткое описание" required style="resize: none;"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="price">Цена</label>
+                <label for="price" style="margin-top: 15px;">Цена</label>
                 <input type="number" id="price" name="price" class="form-control" placeholder="Введите цену" required>
             </div>
             
-            <button type="submit" class="btn btn-primary">Создать объявление</button>
+            <button type="submit" class="btn btn-primary mt-3">Создать объявление</button>
         </form>
     </main>
 
