@@ -2,20 +2,32 @@
 
 @section('title', 'Вход')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
 @section('content')
     <main style="width: 25%;">
         <div class="login-form">
             <h1>Вход</h1>
-            <form>
+            <form method="post" action="{{route('login.submit')}}">
+                @csrf
                 <!-- Поле ввода электронной почты -->
                 <div data-mdb-input-init class="form-outline mb-4">
-                    <input type="email" id="form2Example1" class="form-control" />
+                    <input name="email" type="email" id="form2Example1" class="form-control" />
                     <label class="form-label" for="form2Example1">Электронная почта</label>
                 </div>
 
                 <!-- Поле ввода пароля -->
                 <div data-mdb-input-init class="form-outline mb-4">
-                    <input type="password" id="form2Example2" class="form-control" />
+                    <input name="password" type="password" id="form2Example2" class="form-control" />
                     <label class="form-label" for="form2Example2">Пароль</label>
                 </div>
 
@@ -36,11 +48,11 @@
                 </div>
 
                 <!-- Кнопка отправки -->
-                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4 w-100">Войти</button>
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4 w-100">Войти</button>
 
                 <!-- Кнопки регистрации -->
                 <div class="text-center">
-                    <p>Ещё нет аккаунта? <a href="{{route('register')}}">Зарегистрироваться</a></p>
+                    <p>Ещё нет аккаунта? <a href="{{route('register.show')}}">Зарегистрироваться</a></p>
                 </div>
             </form>
         </div>

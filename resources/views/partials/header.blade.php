@@ -13,15 +13,28 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('categories')}}">Категории</a>
                     </li>
+                    @auth()
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('add')}}">Создать объявление</a>
                     </li>
+                    @endauth
                 </ul>
                 <form class="d-flex position-absolute start-50 translate-middle-x" style="width: 40%;" role="search">
                     <input class="form-control me-2" type="search" placeholder="Введите текст для поиска объявлений" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Поиск</button>
                 </form>
-                <a href="{{route('auth')}}" class="btn btn-primary">Войти</a>
+                @auth()
+                    <label class="fs-4  text-primary p-2">
+                        {{ auth()->user()->name .  ','}}
+                    </label>
+                    <form action="{{route('logout')}}" method="post">
+                        @csrf
+                        <button class="btn btn-outline-danger">Выход</button>
+                    </form>
+                @endauth
+                @guest()
+                    <a href="{{route('login.show')}}" class="btn btn-primary">Войти</a>
+                @endguest
 
             </div>
         </div>

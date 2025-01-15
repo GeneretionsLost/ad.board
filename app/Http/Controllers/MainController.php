@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Subcategory;
 
 class MainController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $products = Product::all();
+
+        return view('index', compact('products'));
     }
 
     public function add()
@@ -16,24 +20,18 @@ class MainController extends Controller
         return view('add');
     }
 
-    public function auth()
-    {
-        return view('auth');
-    }
-
-    public function register()
-    {
-        return view('register');
-    }
-
     public function categories()
     {
-        return view('categories');
+        $categories = Category::all();
+
+        return view('categories', compact('categories'));
     }
 
-    public function subcategory()
+    public function subcategory($name)
     {
-        return view('subcategory');
+        $subcategory = Subcategory::where('name', $name)->firstOrFail();
+
+        return view('subcategory', compact('subcategory'));
     }
 
     public function post()

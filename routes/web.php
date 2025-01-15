@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,14 @@ use App\Http\Controllers\MainController;
 */
 
 Route::get('/', [MainController::class, 'index'])->name('index');
-Route::get('/add', [MainController::class, 'add'])->name('add');
-Route::get('/auth', [MainController::class, 'auth'])->name('auth');
-Route::get('/register', [MainController::class, 'register'])->name('register');
+Route::get('/create', [MainController::class, 'showCreateForm'])->name('create');
 Route::get('/categories', [MainController::class, 'categories'])->name('categories');
-Route::get('/subcategory', [MainController::class, 'subcategory'])->name('subcategory');
-Route::get('/post', [MainController::class, 'post'])->name('post');
+Route::get('/category/{name}', [MainController::class, 'subcategory'])->name('subcategory');
+Route::get('/category/{name}/{id}', [MainController::class, 'post'])->name('post');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.show');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.show');
+Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
