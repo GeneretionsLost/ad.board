@@ -40,12 +40,12 @@
     </style>
 
     <main class="add-page">
-        <h1 class="add-title">Название объявления</h1>
-        <img src="https://placehold.co/600x400" alt="Изображение объявления" class="add-image">
+        <h1 class="add-title">{{$product->name}}</h1>
+        <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://placehold.co/600x400' }}" alt="Изображение объявления" class="add-image">
         <p class="add-description">
-            Это пример описания объявления. Здесь вы можете написать текст, который детализирует все особенности вашего товара или услуги.
+            {{$product->description}}
         </p>
-        <p class="add-price">Цена: <strong>5000 ₸</strong></p>
+        <p class="add-price">Цена: <strong>{{$product->price}} ₸</strong></p>
     </main>
 
 @endsection

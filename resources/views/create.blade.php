@@ -3,28 +3,42 @@
 @section('title', 'Создание объявления')
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <main style="width: 25%;">
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <div class="form-group">
                     <label for="title">Название объявления</label>
-                    <input type="text" id="title" name="title" class="form-control" placeholder="Введите название объявления" required>
+                    <input type="text" id="title" name="name" class="form-control" placeholder="Введите название объявления" required>
                 </div>
 
                 <label for="category" style="margin-top: 15px;">Категория</label>
                 <select id="category" name="category" class="form-control">
                     <option value="">Выберите категорию</option>
-                    <option value="electronics">Электроника</option>
-                    <option value="furniture">Мебель</option>
-                    <option value="clothing">Одежда</option>
+                    @foreach($categories as $category)
+                        <option value="{{$category->name}}">{{$category->name}}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="subcategory" style="margin-top: 15px;">Подкатегория</label>
-                <select id="subcategory" name="subcategory" class="form-control" disabled>
+                <select id="subcategory" name="subcategory_id" class="form-control" disabled>
                     <option value="">Выберите подкатегорию</option>
+                    @foreach($categories as $category)
+                        @foreach($category->subcategories as $subcategory)
+                            <option value="{{$subcategory->id}}">{{$subcategory->name}}</option>
+                        @endforeach
+                    @endforeach
                 </select>
             </div>
 
@@ -35,39 +49,46 @@
 
             <div class="form-group">
                 <label for="description" style="margin-top: 15px;">Краткое описание</label>
-                <textarea id="description"  name="description" class="form-control"  rows="4" placeholder="Введите краткое описание" required style="resize: none;"></textarea>
+                <textarea id="description" name="description" class="form-control" rows="4" placeholder="Введите краткое описание" required style="resize: none;"></textarea>
             </div>
 
             <div class="form-group">
                 <label for="price" style="margin-top: 15px;">Цена</label>
                 <input type="number" id="price" name="price" class="form-control" placeholder="Введите цену" required>
             </div>
-            
+
             <button type="submit" class="btn btn-primary mt-3">Создать объявление</button>
         </form>
     </main>
 
     <script>
-        // Пример динамической подкатегории в зависимости от выбранной категории
         const categorySelect = document.getElementById('category');
         const subcategorySelect = document.getElementById('subcategory');
 
-        categorySelect.addEventListener('change', function() {
+        // Массив с категориями и подкатегориями, переданный через Blade
+        const categories = @json($categories);
+
+        categorySelect.addEventListener('change', function () {
             const selectedCategory = categorySelect.value;
 
             // Очистить подкатегории
             subcategorySelect.innerHTML = '<option value="">Выберите подкатегорию</option>';
 
-            if (selectedCategory === 'electronics') {
-                subcategorySelect.innerHTML += '<option value="phones">Телефоны</option><option value="laptops">Ноутбуки</option>';
-            } else if (selectedCategory === 'furniture') {
-                subcategorySelect.innerHTML += '<option value="chairs">Стулья</option><option value="tables">Столы</option>';
-            } else if (selectedCategory === 'clothing') {
-                subcategorySelect.innerHTML += '<option value="shirts">Рубашки</option><option value="pants">Брюки</option>';
-            }
+            // Найти выбранную категорию
+            const selectedCategoryData = categories.find(category => category.name === selectedCategory);
 
-            // Включить выпадающий список подкатегорий
-            subcategorySelect.disabled = false;
+            if (selectedCategoryData) {
+                // Добавить подкатегории в список
+                selectedCategoryData.subcategories.forEach(subcategory => {
+                    subcategorySelect.innerHTML += `<option value="${subcategory.id}">${subcategory.name}</option>`;
+                });
+
+                // Включить выпадающий список подкатегорий
+                subcategorySelect.disabled = false;
+            } else {
+                // Если категория не выбрана или данных нет, скрыть подкатегории
+                subcategorySelect.disabled = true;
+            }
         });
     </script>
 @endsection

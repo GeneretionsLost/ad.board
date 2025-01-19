@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Ad Board</a>
+            <a class="navbar-brand" href="{{route('dashboard')}}">Ad Board</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -14,9 +14,14 @@
                         <a class="nav-link" href="{{route('categories')}}">Категории</a>
                     </li>
                     @auth()
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('add')}}">Создать объявление</a>
-                    </li>
+                        @if(auth()->user()->is_admin)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('lists')}}">Списки</a>
+                            </li>
+                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('create')}}">Создать объявление</a>
+                        </li>
                     @endauth
                 </ul>
                 <form class="d-flex position-absolute start-50 translate-middle-x" style="width: 40%;" role="search">

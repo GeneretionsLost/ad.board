@@ -40,11 +40,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $redirectRoute = Auth::user()->is_admin ? 'dashboard' : 'index';
 
-            return redirect()->route('index')->with('success', 'Привет, ' . auth()->user()->name);
+
+            return redirect()->route($redirectRoute)->with('success', 'Привет, ' . auth()->user()->name);
         }
         return back()->withErrors([
-            'email' => 'Неверный логинили пароль'
+            'email' => 'Неверный логин или пароль'
         ]);
     }
 

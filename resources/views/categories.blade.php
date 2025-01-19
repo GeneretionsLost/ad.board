@@ -25,7 +25,7 @@
                     <h2>{{$category->name}}</h2>
                     <ul class="subcategories" style="display: flex; gap: 30px;">
                         @foreach($category->subcategories as $subcategory)
-                            <li><a href="{{route('subcategory', ['name'=>$subcategory->name])}}">{{$subcategory->name}}</a></li>
+                            <li><a href="{{route('subcategory', ['category'=>$category->name,'subcategory'=>$subcategory->name])}}">{{$subcategory->name}}</a></li>
                         @endforeach
                     </ul>
                 </div>
