@@ -37,6 +37,21 @@
     </div>
 @endif
 
+@if(session('danger'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ session('danger') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@auth()
+    @if(auth()->user()->banned)
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Пользователь заблокирован и не может создавать новые объявления</strong>
+        </div>
+    @endif
+@endauth
+
 @yield('content')
 
 <!-- MDBootstrap JS -->

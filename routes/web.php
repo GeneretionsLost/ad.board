@@ -32,3 +32,9 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.su
 
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 Route::get('/dashboard/lists', [AdminController::class, 'lists'])->name('lists');
+Route::get('/dashboard/edit/{id}', [AdminController::class, 'edit'])->name('edit');
+Route::post('/dashboard/update/{id}', [AdminController::class, 'update'])->name('update');
+Route::post('/dashboard/ban/{id}', [AdminController::class, 'ban'])->name('ban');
+Route::post('/dashboard/unban/{id}', [AdminController::class, 'unban'])->name('unban');
+Route::post('/dashboard/confirm/{id}', [AdminController::class, 'confirm'])->name('confirm');
+Route::post('/dashboard/reject/{id}', [AdminController::class, 'reject'])->name('reject');

@@ -19,9 +19,11 @@
                                 <a class="nav-link" href="{{route('lists')}}">Списки</a>
                             </li>
                         @endif
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('create')}}">Создать объявление</a>
-                        </li>
+                        @if(!auth()->user()->banned)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('create')}}">Создать объявление</a>
+                            </li>
+                        @endif
                     @endauth
                 </ul>
                 <form class="d-flex position-absolute start-50 translate-middle-x" style="width: 40%;" role="search">

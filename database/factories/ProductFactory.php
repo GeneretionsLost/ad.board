@@ -19,7 +19,7 @@ class ProductFactory extends Factory
         return [
             'subcategory_id' =>fake()->numberBetween(1, 20),
             'name' => fake()->word(),
-            'description' => fake()->paragraph(),
+            'description' => implode(' ', fake()->sentences(rand(5, 10))),
             'price' => fake()->numberBetween(1000, 100000),
         ];
     }

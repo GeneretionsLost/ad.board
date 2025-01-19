@@ -38,15 +38,18 @@
                 {{$user->name}}
             </div>
             <div class="user-buttons-container">
-                <!-- Кнопка редактирования всегда доступна -->
-                <button class="btn btn-primary">Редактировать</button>
+                <a href="{{route('edit',['id'=>$user->id])}}" class="btn btn-primary">Редактировать</a>
 
                 @if($user->banned)
-                    <!-- Если пользователь забанен, показываем кнопку "Разбанить" -->
-                    <button class="btn btn-success">Разбанить</button>
+                    <form action="{{route('unban', ['id'=>$user->id])}}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-success">Разбанить</button>
+                    </form>
                 @else
-                    <!-- Если пользователь не забанен, показываем кнопку "Забанить" -->
-                    <button class="btn btn-danger">Забанить</button>
+                    <form action="{{route('ban', ['id'=>$user->id])}}" method="post">
+                        @csrf
+                        <button class="btn btn-danger">Забанить</button>
+                    </form>
                 @endif
             </div>
         </main>

@@ -79,8 +79,8 @@
         }
 
     </style>
-        @foreach($products as $product)
-            <main class="add-page">
+    @foreach($products as $product)
+        <main class="add-page">
             <div class="content-wrapper">
                 <h1 class="add-title">{{$product->name}}</h1>
                 <img src="https://placehold.co/600x400" alt="Изображение объявления" class="add-image">
@@ -89,13 +89,19 @@
                 </p>
                 <p class="add-price">Цена: <strong>{{$product->price}} ₸</strong></p>
 
-                <div class="date">Дата добавления: 19 января 2025</div>
+                <div class="date">Дата добавления: {{ $product->created_at->locale('ru')->format('d F Y') }}</div>
 
                 <div class="confirmation-buttons">
-                    <button class="confirm-btn">Подтвердить</button>
-                    <button class="reject-btn">Отклонить</button>
+                    <form action="{{route('confirm',['id'=>$product->id])}}" method="post">
+                        @csrf
+                        <button type="submit" class="confirm-btn">Подтвердить</button>
+                    </form>
+                    <form action="{{route('reject',['id'=>$product->id])}}" method="post">
+                        @csrf
+                        <button class="reject-btn">Отклонить</button>
+                    </form>
                 </div>
             </div>
-            </main>
-        @endforeach
+        </main>
+    @endforeach
 @endsection

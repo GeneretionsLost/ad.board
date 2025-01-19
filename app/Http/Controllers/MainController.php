@@ -12,7 +12,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        $products = Product::where('status', 1)->get();
+        $products = Product::where('status', 1)->paginate(10);
 
         return view('index', compact('products'));
     }

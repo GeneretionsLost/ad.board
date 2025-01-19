@@ -10,7 +10,9 @@
             @foreach($products as $product)
                 @include('partials.card')
             @endforeach
-
+        </div>
+        <div class="links" style="margin-top: 30px">
+            {{$products->links()}}
         </div>
     </main>
 @endsection
