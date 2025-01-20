@@ -55,21 +55,9 @@
             cursor: pointer;
         }
 
-        .confirm-btn {
-            background-color: #4CAF50;
-            color: white;
-            margin-right: 5px;
-        }
-
-        .reject-btn {
-            background-color: #f44336;
-            color: white;
-        }
-
         .date {
             position: relative;
             top: 20px;
-            left: 20px;
             font-size: 1rem;
             color: #777;
         }
@@ -83,25 +71,32 @@
         <main class="add-page">
             <div class="content-wrapper">
                 <h1 class="add-title">{{$product->name}}</h1>
-                <img src="https://placehold.co/600x400" alt="Изображение объявления" class="add-image">
+                <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://placehold.co/600x400' }}" class="card-img-top" alt="...">
                 <p class="add-description">
                     {{$product->description}}
                 </p>
                 <p class="add-price">Цена: <strong>{{$product->price}} ₸</strong></p>
 
-                <div class="date">Дата добавления: {{ $product->created_at->locale('ru')->format('d F Y') }}</div>
+                <div class="date text-muted small">Дата добавления: {{ $product->created_at->locale('ru')->format('d F Y') }}</div>
 
-                <div class="confirmation-buttons">
+                <div class="confirmation-buttons d-flex gap-2">
                     <form action="{{route('confirm',['id'=>$product->id])}}" method="post">
                         @csrf
-                        <button type="submit" class="confirm-btn">Подтвердить</button>
+                        <button type="submit" class="btn btn-success">Подтвердить</button>
                     </form>
                     <form action="{{route('reject',['id'=>$product->id])}}" method="post">
                         @csrf
-                        <button class="reject-btn">Отклонить</button>
+                        <button class="btn btn-danger">Отклонить</button>
                     </form>
                 </div>
             </div>
         </main>
+
+        <main class="add-page">
+
+            {{$products->links()}}
+        </main>
+
     @endforeach
+
 @endsection

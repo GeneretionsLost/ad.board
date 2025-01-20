@@ -54,4 +54,7 @@
             </div>
         </main>
     @endforeach
+    <main class="add-page">
+        {{$users->links()}}
+    </main>
 @endsection

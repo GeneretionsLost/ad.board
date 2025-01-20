@@ -26,8 +26,8 @@
                         @endif
                     @endauth
                 </ul>
-                <form class="d-flex position-absolute start-50 translate-middle-x" style="width: 40%;" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Введите текст для поиска объявлений" aria-label="Search">
+                <form method="GET" action="{{ route('index') }}" class="d-flex position-absolute start-50 translate-middle-x" style="width: 40%;" role="search">
+                    <input class="form-control me-2" value="{{ request('search') }}" name="search" type="search" placeholder="Введите текст для поиска объявлений" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Поиск</button>
                 </form>
                 @auth()

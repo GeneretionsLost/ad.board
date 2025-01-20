@@ -11,14 +11,14 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        $products = Product::where('status', 0)->get();
+        $products = Product::where('status', 0)->orderBy('created_at', 'asc')->paginate(10);
 
         return view('admin.dashboard',compact('products'));
     }
 
     public function lists()
     {
-        $users = User::where('is_admin', 0)->get();
+        $users = User::where('is_admin', 0)->paginate(10);
 
         return view('admin.lists',compact('users'));
     }

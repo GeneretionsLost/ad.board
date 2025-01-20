@@ -17,10 +17,12 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'subcategory_id' =>fake()->numberBetween(1, 20),
+            'subcategory_id' => fake()->numberBetween(1, 20),
             'name' => fake()->word(),
             'description' => implode(' ', fake()->sentences(rand(5, 10))),
-            'price' => fake()->numberBetween(1000, 100000),
+            'price' => fake()->numberBetween(10, 1000) * 100,
+            'created_at' => $createdAt = fake()->dateTimeBetween('-1 year', 'now'), // Генерация даты для created_at
+            'updated_at' => $createdAt, // Использование той же даты для updated_at
         ];
     }
 }

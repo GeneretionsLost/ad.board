@@ -18,7 +18,7 @@
             <div class="form-group">
                 <div class="form-group">
                     <label for="title">Название объявления</label>
-                    <input type="text" id="title" name="name" class="form-control" placeholder="Введите название объявления" required>
+                    <input type="text" id="title" value="{{old('name')}}" name="name" class="form-control" placeholder="Введите название объявления" required>
                 </div>
 
                 <label for="category" style="margin-top: 15px;">Категория</label>
@@ -49,12 +49,12 @@
 
             <div class="form-group">
                 <label for="description" style="margin-top: 15px;">Краткое описание</label>
-                <textarea id="description" name="description" class="form-control" rows="4" placeholder="Введите краткое описание" required style="resize: none;"></textarea>
+                <textarea id="description" name="description" class="form-control" rows="4" placeholder="Введите краткое описание" required style="resize: none;">{{old('description')}}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="price" style="margin-top: 15px;">Цена</label>
-                <input type="number" id="price" name="price" class="form-control" placeholder="Введите цену" required>
+                <input type="number" id="price" value="{{old('price')}}" name="price" class="form-control" placeholder="Введите цену" required>
             </div>
 
             <button type="submit" class="btn btn-primary mt-3">Создать объявление</button>
