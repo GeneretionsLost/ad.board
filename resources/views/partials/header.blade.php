@@ -14,14 +14,9 @@
                         <a class="nav-link" href="{{route('categories')}}">Категории</a>
                     </li>
                     @auth()
-                        @if(auth()->user()->is_admin)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('lists')}}">Списки</a>
-                            </li>
-                        @endif
                         @if(!auth()->user()->banned)
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('create')}}">Создать объявление</a>
+                                <a class="nav-link" href="{{route('post.create')}}">Создать объявление</a>
                             </li>
                         @endif
                     @endauth

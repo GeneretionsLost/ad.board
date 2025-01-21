@@ -10,22 +10,6 @@ use Illuminate\Support\Facades\Storage;
 
 class MainController extends Controller
 {
-    public function index(Request $request)
-    {
-        $query = Product::where('status', 1);
-
-        // Проверяем, есть ли запрос на поиск
-        if ($search = $request->input('search')) {
-            $query->where('name', 'like', '%' . $search . '%'); // Ищем по названию
-        }
-
-        // Сортируем и пагинируем результаты
-        $products = $query->orderBy('updated_at', 'desc')->paginate(10);
-
-        return view('index', compact('products'));
-    }
-
-
     public function categories()
     {
         $categories = Category::all();
@@ -43,42 +27,5 @@ class MainController extends Controller
             ->firstOrFail();
 
         return view('subcategory', compact('subcategory'));
-    }
-
-    public function post($category,$subcategory, $id)
-    {
-        $category=Category::where('name', $category)->firstOrFail();
-        $subcategory = Subcategory::where('category_id', $category->id)->where('name', $subcategory)->firstOrFail();
-        $product = Product::where('subcategory_id', $subcategory->id)->where('id', $id)->firstOrFail();
-
-        return view('post', compact('product'));
-    }
-
-    public function showCreateForm()
-    {
-        $categories = Category::all();
-
-        return view('create', compact('categories'));
-    }
-
-    public function productStore(Request $request)
-    {
-        $data = $request->validate([
-            'name' => ['required', 'max:20'],
-            'description' => ['required', 'min:20'],
-            'price' => ['required', 'numeric'],
-            'subcategory_id' => ['required'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-        ]);
-
-        $data['status'] = auth()->user()->is_admin ? 1 : 0;
-
-        if ($request->hasFile('image')) {
-            $data['image'] = Storage::disk('public')->put('images', $data['image']);
-        }
-
-        Product::create($data);
-
-        return redirect()->route('index')->with('success', 'Объявление добавлено!');
     }
 }

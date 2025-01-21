@@ -13,7 +13,7 @@
         </div>
     @endif
     <main style="width: 25%;">
-        <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('post.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <div class="form-group">

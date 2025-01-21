@@ -28,12 +28,12 @@ class ProductSeeder extends Seeder
         }
 
         // Создаем дополнительные продукты, чтобы общее количество было 150
-        $remainingProducts = 50 - ($subcategories->count() * 2);
+        $remainingProducts = 150 - ($subcategories->count() * 2);
         if ($remainingProducts > 0) {
             Product::factory($remainingProducts)->create();
         }
 
-        Product::factory(100)->create([
+        Product::factory(50)->create([
             'status' => 1,
         ]);
     }
