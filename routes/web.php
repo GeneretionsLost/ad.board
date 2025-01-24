@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VerifyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
@@ -26,17 +28,22 @@ Route::resource('admin_category', CategoryController::class);
 Route::get('/categories', [MainController::class, 'categories'])->name('categories');
 Route::get('/categories/{category}/{subcategory}', [MainController::class, 'subcategory'])->name('subcategory');
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.show');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.show');
-Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.show');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+    Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.show');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 
-Route::get('dashboard/', [AdminController::class, 'dashboard'])->name('dashboard');
-
+    Route::get('/forgot-password', [UserController::class, 'passwordRequest'])->name('password.request');
+    Route::post('/forgot-password', [UserController::class, 'passwordEmail'])->name('password.email');
+    Route::get('/reset-password/{token}', [UserController::class, 'passwordReset'])->name('password.reset');
+    Route::post('/reset-password', [UserController::class, 'passwordUpdate'])->name('password.update');
+});
 
 Route::group(['prefix' => 'dashboard', 'middleware' => 'is_admin'], function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/unmoderated', [AdminController::class, 'unmoderated'])->name('unmoderated');
 
     Route::group(['prefix' => 'category'], function () {
@@ -61,6 +68,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'is_admin'], function () 
         Route::post('/unban/{id}', [AdminController::class, 'unban'])->name('unban');
     });
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/email/verify', [VerifyController::class, 'notice'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [VerifyController::class, 'verification'])->middleware('signed')->name('verification.verify');
+    Route::post('/email/verification-notification', [VerifyController::class, 'send'])->middleware('throttle:3,1')->name('verification.send');
+});
+
+
 
 
 

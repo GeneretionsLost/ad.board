@@ -15,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('subcategories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('category_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('name');
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+
         });
     }
 
@@ -28,6 +31,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('subcategories', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);  // Удаляем внешний ключ
+        });
+
         Schema::dropIfExists('subcategories');
     }
 };

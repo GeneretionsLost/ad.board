@@ -18,7 +18,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check() && Auth::user()->is_admin === 1) {
-            return $next($request); // Продолжить выполнение запроса
+            return $next($request); // кастомный мидлвейр
         }
 
         abort(403, 'Доступ имеет только администратор.');

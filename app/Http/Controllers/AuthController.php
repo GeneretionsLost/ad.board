@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,9 +27,12 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed'],
         ]);
 
-        User::create($request->all());
+        $user = User::create($request->all());
+        event(new Registered($user));
+        Auth::login($user);
 
-        return redirect()->route('index')->with('success', 'Регистрация прошла успешно!');
+
+        return redirect()->route('verification.notice');
     }
 
     public function login(Request $request)
@@ -38,7 +42,9 @@ class AuthController extends Controller
             'password' => ['required']
         ]);
 
-        if (Auth::attempt($credentials)) {
+        $remember = $request->has('remember');
+
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
             $redirectRoute = Auth::user()->is_admin ? 'dashboard' : 'index';
 

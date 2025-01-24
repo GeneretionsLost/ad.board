@@ -12,6 +12,12 @@
     </div>
 @endif
 
+@if(session('status'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{session('status')}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
 @section('content')
     <main style="width: 25%;">
@@ -36,14 +42,14 @@
                     <div class="col d-flex justify-content-center">
                         <!-- Флажок -->
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                            <input class="form-check-input" type="checkbox" name="remember" id="form2Example31" checked />
                             <label class="form-check-label" for="form2Example31"> Запомнить меня </label>
                         </div>
                     </div>
 
                     <div class="col">
                         <!-- Простая ссылка -->
-                        <a href="#!">Забыли пароль?</a>
+                        <a href="{{route('password.request')}}">Забыли пароль?</a>
                     </div>
                 </div>
 
